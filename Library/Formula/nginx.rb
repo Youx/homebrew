@@ -18,7 +18,8 @@ class Nginx < Formula
 
   def options
     [
-      ['--with-passenger', "Compile with support for Phusion Passenger module"]
+      ['--with-passenger', "Compile with support for Phusion Passenger module"],
+      ['--with-ipv6', "Compile with support for IPv6"]
     ]
   end
 
@@ -40,6 +41,7 @@ class Nginx < Formula
             "--conf-path=#{etc}/nginx/nginx.conf", "--pid-path=#{var}/run/nginx.pid",
             "--lock-path=#{var}/nginx/nginx.lock"]
     args << passenger_config_args if ARGV.include? '--with-passenger'
+    args << "--with-ipv6" if ARGV.include? '--with-ipv6'
 
     system "./configure", *args
     system "make install"
